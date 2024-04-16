@@ -4,7 +4,8 @@ import turing.enchantmentlib.EnchantmentLib;
 
 public class EnchantmentBuilder<T extends Enchantment> {
 	private final T enchant;
-	private int maxLevel;
+	private int maxLevel = 1;
+	private int rarity = 1;
 	private final String modid;
 	private String name;
 	private boolean hidden;
@@ -24,6 +25,11 @@ public class EnchantmentBuilder<T extends Enchantment> {
 		return this;
 	}
 
+	public EnchantmentBuilder<T> rarity(int rarity) {
+		this.rarity = Math.max(Math.min(rarity, 255), 1);
+		return this;
+	}
+
 	public EnchantmentBuilder<T> hidden(boolean isHidden) {
 		this.hidden = isHidden;
 		return this;
@@ -39,6 +45,7 @@ public class EnchantmentBuilder<T extends Enchantment> {
 		enchant.name = name;
 		enchant.maxLevel = maxLevel;
 		enchant.hidden = hidden;
+		enchant.rarity = rarity;
 		EnchantmentLib.ENCHANTMENTS.put(enchant.getNamespace(), enchant);
 		return enchant;
 	}

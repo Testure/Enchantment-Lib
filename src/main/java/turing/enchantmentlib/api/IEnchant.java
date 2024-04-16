@@ -28,6 +28,10 @@ public interface IEnchant extends IEnchantFilter {
 		return 255;
 	}
 
+	default int getRarity() {
+		return 1;
+	}
+
 	default boolean isHidden() {
 		return false;
 	}

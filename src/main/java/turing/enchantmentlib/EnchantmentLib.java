@@ -55,42 +55,52 @@ public class EnchantmentLib implements ModInitializer {
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentSharpness())
 			.name("sharpness")
+			.rarity(2)
 			.maxLevel(5)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentLooting())
 			.name("looting")
+			.rarity(7)
 			.maxLevel(3)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentFortune())
 			.name("fortune")
+			.rarity(8)
 			.maxLevel(3)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentInfinity())
 			.name("infinity")
+			.rarity(17)
 			.maxLevel(1)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentMidas())
 			.name("midas")
+			.rarity(15)
 			.maxLevel(1)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentFlame())
 			.name("flame")
+			.rarity(10)
 			.maxLevel(1)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentPower())
 			.name("power")
+			.rarity(3)
 			.maxLevel(3)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentAutosmelt())
 			.name("autosmelt")
+			.rarity(5)
 			.maxLevel(1)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentEfficiency())
 			.name("efficiency")
+			.rarity(2)
 			.maxLevel(5)
 			.build();
 		SILK_TOUCH = new EnchantmentBuilder<>(MOD_ID, new EnchantmentSilkTouch())
 			.name("silk_touch")
+			.rarity(4)
 			.maxLevel(1)
 			.build();
 	}

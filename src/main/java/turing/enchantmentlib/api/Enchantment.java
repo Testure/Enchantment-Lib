@@ -5,10 +5,16 @@ public class Enchantment implements IEnchant {
 	protected String modid;
 	public boolean hidden = false;
 	public int maxLevel = 255;
+	public int rarity = 1;
 
 	@Override
 	public int getMaxLevel() {
 		return maxLevel;
+	}
+
+	@Override
+	public int getRarity() {
+		return rarity;
 	}
 
 	@Override
