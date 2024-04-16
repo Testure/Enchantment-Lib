@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "enchantmentlib",
+  "version": "${version}",
+
+  "name": "Enchantment Lib",
+  "description": "A library with standard and flexible enchantment implementation that allows multiple mods to add and use enchantments without conflicting.",
+  "authors": [
+    "Turing6"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+	"icon": "icon.png",
+  "license": "GPL-3.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+			"turing.enchantmentlib.EnchantmentLib"
+    ]
+	},
+  "mixins": [
+		"enchantmentlib.mixins.json"
+  ],
+
+  "depends": {
+		"minecraft": "~7.1-beta.2",
+    "fabricloader": ">=0.15.5",
+		"halplibe": ">=3.4.16"
+  },
+  "suggests": {
+  },
+	"custom": {
+		"modmenu:api": true
+	}
+}
