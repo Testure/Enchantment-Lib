@@ -76,6 +76,10 @@ public interface IEnchant extends IEnchantFilter {
 		return drops;
 	}
 
+	default void getExtraEntityDrops(ItemStack stack, EntityLiving entity, List<ItemStack> baseDrops, List<ItemStack> extraDrops) {
+
+	}
+
 	default boolean canHarvestBlock(ItemStack stack, Block block, boolean canHarvest) {
 		return canHarvest;
 	}

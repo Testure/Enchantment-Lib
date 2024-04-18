@@ -9,7 +9,8 @@
       "InventoryPlayerMixin",
       "ItemBowMixin",
       "ItemAccessor",
-      "EntityLivingAccessor",
+      "EntityMixin",
+      "EntityLivingMixin",
       "EntityAccessor",
       "BlockMixin"
     ],

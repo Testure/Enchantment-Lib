@@ -258,6 +258,7 @@ public class EnchantmentLib implements ModInitializer {
 	}
 
 	public static boolean isItemEnchanted(ItemStack stack) {
+		if (stack == null || stack.getItem() == null || stack.stackSize < 1) return false;
 		CompoundTag tag = stack.getData();
 		return tag.containsKey("enchantments");
 	}
