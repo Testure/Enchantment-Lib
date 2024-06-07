@@ -42,8 +42,8 @@ public class EnchantmentLib implements ModInitializer {
 
     @Override
     public void onInitialize() {
-		CommandHelper.Core.createCommand(new EnchantCommand());
-		CommandHelper.Core.createCommand(new DisenchantCommand());
+		CommandHelper.createCommand(new EnchantCommand());
+		CommandHelper.createCommand(new DisenchantCommand());
 		initDefaultEnchants();
         LOGGER.info("Enchantment Lib initialized.");
     }
