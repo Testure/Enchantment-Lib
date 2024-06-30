@@ -16,13 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import turing.enchantmentlib.EnchantmentLib;
-import turing.enchantmentlib.api.Enchantment;
 import turing.enchantmentlib.api.EnchantmentData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(value = ItemStack.class, remap = false)
 public abstract class ItemStackMixin {
@@ -80,8 +75,8 @@ public abstract class ItemStackMixin {
 	}
 
 	@Inject(method = "canHarvestBlock", at = @At("HEAD"), cancellable = true)
-	public void canHarvestBlock(Block block, CallbackInfoReturnable<Boolean> cir) {
-		boolean og = thisAs.getItem().canHarvestBlock(block);
+	public void canHarvestBlock(EntityLiving entityLiving, Block block, CallbackInfoReturnable<Boolean> cir) {
+		boolean og = thisAs.getItem().canHarvestBlock(entityLiving, thisAs, block);
 		for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(thisAs)) {
 			boolean change = enchantment.getEnchantment().canHarvestBlock(thisAs, block, og);
 			if (change != og) og = change;
@@ -146,7 +141,7 @@ public abstract class ItemStackMixin {
 
 	@Inject(method = "useItemRightClick", at = @At("HEAD"), cancellable = true)
 	public void onRightClick(World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> cir) {
-		ItemStack og = thisAs.getItem().onItemRightClick(thisAs, world, player);
+		ItemStack og = thisAs.getItem().onUseItem(thisAs, world, player);
 		for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(thisAs)) {
 			og = enchantment.getEnchantment().onRightClick(og, world, player);
 		}
@@ -155,7 +150,7 @@ public abstract class ItemStackMixin {
 
 	@Inject(method = "useItem", at = @At("HEAD"), cancellable = true)
 	public void use(EntityPlayer player, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
-		boolean flag = thisAs.getItem().onItemUse(thisAs, player, world, x, y, z, side, xPlaced, yPlaced);
+		boolean flag = thisAs.getItem().onUseItemOnBlock(thisAs, player, world, x, y, z, side, xPlaced, yPlaced);
 		for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(thisAs)) {
 			boolean change = enchantment.getEnchantment().onUse(thisAs, world, player, x, y, z, side, xPlaced, yPlaced, flag);
 			if (change) flag = true;

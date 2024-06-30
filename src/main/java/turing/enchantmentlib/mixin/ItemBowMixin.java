@@ -21,7 +21,7 @@ public class ItemBowMixin extends Item {
 		super(id);
 	}
 
-	@Inject(method = "onItemRightClick", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "onUseItem", at = @At("HEAD"), cancellable = true)
 	public void onBowUse(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> cir) {
 		if (EnchantmentLib.isItemEnchanted(stack)) {
 			EnchantmentData[] enchantments = EnchantmentLib.getEnchantsForItem(stack);
