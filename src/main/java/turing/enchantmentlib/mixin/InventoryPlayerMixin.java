@@ -18,9 +18,9 @@ public class InventoryPlayerMixin {
 	@Shadow
 	public ItemStack[] armorInventory;
 
-	@Inject(method = "getTotalProtectionAmount", at = @At(value = "RETURN", shift = At.Shift.BEFORE), cancellable = true)
-	public void changeProtection(DamageType damageType, CallbackInfoReturnable<Float> cir, @Local(name = "protectionPercentage") float totalProtection) {
-		float finalProtection = totalProtection;
+	@Inject(method = "getTotalProtectionAmount", at = @At(value = "RETURN"), cancellable = true)
+	public void changeProtection(DamageType damageType, CallbackInfoReturnable<Float> cir) {
+		float finalProtection = cir.getReturnValue();
 		for (ItemStack stack : armorInventory) {
 			if (stack != null && stack.getItem() instanceof ItemArmor) {
 				ItemArmor armor = (ItemArmor) stack.getItem();
