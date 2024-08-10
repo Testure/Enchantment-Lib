@@ -5,6 +5,8 @@ import com.mojang.nbt.Tag;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemBow;
+import net.minecraft.core.item.ItemSaddle;
+import net.minecraft.core.item.ItemFirestriker;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.*;
 import org.jetbrains.annotations.Contract;
@@ -27,6 +29,8 @@ public class EnchantmentLib implements ModInitializer {
 	public static final Map<String, IEnchant> ENCHANTMENTS = new HashMap<>();
 
 	public static final IEnchantFilter ANY = stack -> true;
+	public static final IEnchantFilter FIRESTRIKER = stack -> stack.getItem() instanceof ItemFirestriker;
+	public static final IEnchantFilter SADDLE = stack -> stack.getItem() instanceof ItemSaddle;
 	public static final IEnchantFilter ARMOR = stack -> stack.getItem() instanceof ItemArmor;
 	public static final IEnchantFilter TOOL = stack -> stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemToolSword;
 	public static final IEnchantFilter DAMAGEABLE = ItemStack::isItemStackDamageable;
@@ -49,6 +53,14 @@ public class EnchantmentLib implements ModInitializer {
     }
 
 	public static void initDefaultEnchants() {
+		new EnchantmentBuilder<>(MOD_ID, new EnchantmentGhast())
+			.name("ghast")
+			.maxLevel(1)
+			.build();
+		new EnchantmentBuilder<>(MOD_ID, new EnchantmentYeehaw())
+			.name("yeehaw")
+			.maxLevel(1)
+			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentUnbreaking())
 			.name("unbreaking")
 			.maxLevel(3)
@@ -56,6 +68,11 @@ public class EnchantmentLib implements ModInitializer {
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentSharpness())
 			.name("sharpness")
 			.rarity(2)
+			.maxLevel(5)
+			.build();
+		new EnchantmentBuilder<>(MOD_ID, new EnchantmentKnockback())
+			.name("knockback")
+			.rarity(3)
 			.maxLevel(5)
 			.build();
 		new EnchantmentBuilder<>(MOD_ID, new EnchantmentLooting())

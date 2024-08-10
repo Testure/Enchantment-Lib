@@ -22,7 +22,7 @@ public class EnchantmentAutosmelt extends Enchantment {
 		if (cause == EnumDropCause.PROPER_TOOL) {
 			List<ItemStack> newDrops = new ArrayList<>();
 			for (ItemStack drop : drops) {
-				Optional<RecipeEntryFurnace> furnaceRecipe = Registries.RECIPES.FURNACE.getAllRecipes().stream().filter(recipe -> recipe.getInput().matches(drop)).findFirst();
+				Optional<RecipeEntryFurnace> furnaceRecipe = Registries.RECIPES.getAllFurnaceRecipes().stream().filter(recipe -> recipe.getInput().matches(drop)).findFirst();
 				if (furnaceRecipe.isPresent()) {
 					newDrops.add(furnaceRecipe.get().getOutput());
 				} else {
