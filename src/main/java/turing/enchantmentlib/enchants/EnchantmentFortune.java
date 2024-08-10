@@ -19,7 +19,7 @@ public class EnchantmentFortune extends Enchantment {
 		if (cause == EnumDropCause.PROPER_TOOL) {
 			int level = getLevel(stack);
 			for (ItemStack drop : drops) {
-				if (!(drop.getItem() instanceof ItemBlock)) {
+				if (drop.stackSize > 1) {
 					int count = world.rand.nextInt(Math.max(MathHelper.floor_float(1.75F * level), 2));
 					if (count > 0) {
 						drop.stackSize += count;

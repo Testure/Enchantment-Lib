@@ -115,8 +115,8 @@ public abstract class ItemStackMixin {
 	}
 
 	@Inject(method = "beforeDestroyBlock", at = @At("HEAD"), cancellable = true)
-	public void beforeDestroyBlock(World world, int x, int y, int z, EntityPlayer player, CallbackInfoReturnable<Boolean> cir) {
-		boolean og = thisAs.getItem().beforeDestroyBlock(world, thisAs, x, y, z, player);
+	public void beforeDestroyBlock(World world, int id, int x, int y, int z, Side side, EntityPlayer player, CallbackInfoReturnable<Boolean> cir) {
+		boolean og = thisAs.getItem().beforeDestroyBlock(world, thisAs, id, x, y, z, side, player);
 		for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(thisAs)) {
 			boolean change = enchantment.getEnchantment().beforeDestroyBlock(thisAs, world, x, y, z, player, og);
 			if (og != change) og = change;
@@ -125,8 +125,8 @@ public abstract class ItemStackMixin {
 	}
 
 	@Inject(method = "onDestroyBlock", at = @At("HEAD"), cancellable = true)
-	public void onDestroyBlockDid(World world, int id, int x, int y, int z, EntityPlayer player, CallbackInfo ci) {
-		boolean flag = thisAs.getItem().onBlockDestroyed(world, thisAs, id, x, y, z, player);
+	public void onDestroyBlockDid(World world, int id, int x, int y, int z, Side side, EntityPlayer player, CallbackInfo ci) {
+		boolean flag = thisAs.getItem().onBlockDestroyed(world, thisAs, id, x, y, z, side, player);
 		if (EnchantmentLib.isItemEnchanted(thisAs)) {
 			for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(thisAs)) {
 				boolean change = enchantment.getEnchantment().onDestroyBlock(thisAs, world, id, x, y, z, player, flag);

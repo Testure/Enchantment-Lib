@@ -9,6 +9,7 @@ import turing.enchantmentlib.mixin.ItemAccessor;
 public class EnchantmentUnbreaking extends Enchantment {
 	@Override
 	public int onItemDamage(ItemStack stack, int damageToTake) {
+	    if (getLevel(stack) >= 20) return 0;
 		if (ItemAccessor.getItemRand().nextInt(20 / getLevel(stack)) == 0) damageToTake = Math.max(damageToTake - 1, 0);
 		return damageToTake;
 	}
