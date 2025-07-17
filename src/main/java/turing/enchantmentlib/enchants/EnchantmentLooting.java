@@ -1,6 +1,7 @@
 package turing.enchantmentlib.enchants;
 
-import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import turing.enchantmentlib.EnchantmentLib;
@@ -13,7 +14,7 @@ import java.util.Random;
 
 public class EnchantmentLooting extends Enchantment {
 	@Override
-	public void getExtraEntityDrops(ItemStack stack, EntityLiving entity, List<ItemStack> baseDrops, List<ItemStack> extraDrops) {
+	public void getExtraEntityDrops(ItemStack stack, Entity entity, List<ItemStack> baseDrops, List<ItemStack> extraDrops) {
 		Random rand = ((EntityAccessor) entity).getRandom();
 		int level = getLevel(stack);
 		if (!baseDrops.isEmpty()) {

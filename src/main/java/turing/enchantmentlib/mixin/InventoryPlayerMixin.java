@@ -1,9 +1,9 @@
 package turing.enchantmentlib.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.InventoryPlayer;
+import net.minecraft.core.item.material.ArmorMaterial;
+import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import turing.enchantmentlib.EnchantmentLib;
 import turing.enchantmentlib.api.EnchantmentData;
 
-@Mixin(value = InventoryPlayer.class, remap = false)
+@Mixin(value = ContainerInventory.class, remap = false)
 public class InventoryPlayerMixin {
 	@Shadow
 	public ItemStack[] armorInventory;
@@ -24,11 +24,14 @@ public class InventoryPlayerMixin {
 		for (ItemStack stack : armorInventory) {
 			if (stack != null && stack.getItem() instanceof ItemArmor) {
 				ItemArmor armor = (ItemArmor) stack.getItem();
-				float protection = armor.material.getProtection(damageType) * armor.getArmorPieceProtectionPercentage();
-				for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(stack)) {
-					float newProtection = enchantment.getEnchantment().getProtection(stack, damageType, protection);
-					if (newProtection != protection) {
-						finalProtection += (newProtection - protection);
+				ArmorMaterial material = armor.getArmorMaterial();
+				if (material != null) {
+					float protection = material.getProtection(damageType) * armor.getArmorPieceProtectionPercentage();
+					for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(stack)) {
+						float newProtection = enchantment.getEnchantment().getProtection(stack, damageType, protection);
+						if (newProtection != protection) {
+							finalProtection += (newProtection - protection);
+						}
 					}
 				}
 			}

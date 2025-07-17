@@ -8,7 +8,7 @@ import turing.enchantmentlib.api.IEnchantFilter;
 
 public class EnchantmentEfficiency extends Enchantment {
 	@Override
-	public float getMiningStrength(ItemStack stack, Block block, float strength) {
+	public float getMiningStrength(ItemStack stack, Block<?> block, float strength) {
 		return strength + (0.25F * getLevel(stack));
 	}
 

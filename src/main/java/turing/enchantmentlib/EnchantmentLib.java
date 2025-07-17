@@ -1,22 +1,15 @@
 package turing.enchantmentlib;
 
-import com.mojang.nbt.CompoundTag;
-import com.mojang.nbt.Tag;
+import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.Tag;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.ItemBow;
-import net.minecraft.core.item.ItemSaddle;
-import net.minecraft.core.item.ItemFirestriker;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.*;
 import net.minecraft.core.item.tool.*;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turing.enchantmentlib.api.*;
-import turing.enchantmentlib.command.DisenchantCommand;
-import turing.enchantmentlib.command.EnchantCommand;
 import turing.enchantmentlib.enchants.*;
-import turniplabs.halplibe.helper.CommandHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +22,7 @@ public class EnchantmentLib implements ModInitializer {
 	public static final Map<String, IEnchant> ENCHANTMENTS = new HashMap<>();
 
 	public static final IEnchantFilter ANY = stack -> true;
-	public static final IEnchantFilter FIRESTRIKER = stack -> stack.getItem() instanceof ItemFirestriker;
+	public static final IEnchantFilter FIRESTRIKER = stack -> stack.getItem() instanceof ItemFireStriker;
 	public static final IEnchantFilter SADDLE = stack -> stack.getItem() instanceof ItemSaddle;
 	public static final IEnchantFilter ARMOR = stack -> stack.getItem() instanceof ItemArmor;
 	public static final IEnchantFilter TOOL = stack -> stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemToolSword;
@@ -37,17 +30,15 @@ public class EnchantmentLib implements ModInitializer {
 	public static final IEnchantFilter WEAPON = stack -> stack.getItem() instanceof ItemToolSword;
 	public static final IEnchantFilter BOW = stack -> stack.getItem() instanceof ItemBow;
 	public static final IEnchantFilter DIGGER = stack -> stack.getItem() instanceof ItemToolShovel || stack.getItem() instanceof ItemToolPickaxe || stack.getItem() instanceof ItemToolAxe;
-	public static final IEnchantFilter HELM = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).armorPiece == 0;
-	public static final IEnchantFilter CHEST = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).armorPiece == 1;
-	public static final IEnchantFilter LEGS = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).armorPiece == 2;
-	public static final IEnchantFilter BOOTS = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).armorPiece == 3;
+	public static final IEnchantFilter HELM = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).getArmorPiece() == 0;
+	public static final IEnchantFilter CHEST = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).getArmorPiece() == 1;
+	public static final IEnchantFilter LEGS = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).getArmorPiece() == 2;
+	public static final IEnchantFilter BOOTS = stack -> ARMOR.canApplyToItem(stack) && ((ItemArmor) stack.getItem()).getArmorPiece() == 3;
 
 	public static IEnchant SILK_TOUCH;
 
     @Override
     public void onInitialize() {
-		CommandHelper.createCommand(new EnchantCommand());
-		CommandHelper.createCommand(new DisenchantCommand());
 		initDefaultEnchants();
         LOGGER.info("Enchantment Lib initialized.");
     }

@@ -2,9 +2,9 @@ package turing.enchantmentlib.api;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.entity.projectile.EntityArrow;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.entity.projectile.ProjectileArrow;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
@@ -64,27 +64,27 @@ public interface IEnchant extends IEnchantFilter {
 		return damageToRepair;
 	}
 
-	default boolean beforeDestroyBlock(ItemStack stack, World world, int x, int y, int z, EntityPlayer player, boolean willDestroy) {
+	default boolean beforeDestroyBlock(ItemStack stack, World world, int x, int y, int z, Player player, boolean willDestroy) {
 		return willDestroy;
 	}
 
-	default boolean onDestroyBlock(ItemStack stack, World world, int id, int x, int y, int z, EntityPlayer player, boolean didDestroy) {
+	default boolean onDestroyBlock(ItemStack stack, World world, int id, int x, int y, int z, Player player, boolean didDestroy) {
 		return didDestroy;
 	}
 
-	default List<ItemStack> getBlockDrops(ItemStack stack, World world, EnumDropCause cause, Block block, int x, int y, int z, int meta, EntityPlayer player, List<ItemStack> drops) {
+	default List<ItemStack> getBlockDrops(ItemStack stack, World world, EnumDropCause cause, Block<?> block, int x, int y, int z, int meta, Player player, List<ItemStack> drops) {
 		return drops;
 	}
 
-	default void getExtraEntityDrops(ItemStack stack, EntityLiving entity, List<ItemStack> baseDrops, List<ItemStack> extraDrops) {
+	default void getExtraEntityDrops(ItemStack stack, Entity entity, List<ItemStack> baseDrops, List<ItemStack> extraDrops) {
 
 	}
 
-	default boolean canHarvestBlock(ItemStack stack, Block block, boolean canHarvest) {
+	default boolean canHarvestBlock(ItemStack stack, Block<?> block, boolean canHarvest) {
 		return canHarvest;
 	}
 
-	default void onHitEntity(ItemStack stack, EntityPlayer player, EntityLiving entity, boolean didHit) {
+	default void onHitEntity(ItemStack stack, Player player, Mob entity, boolean didHit) {
 
 	}
 
@@ -92,19 +92,19 @@ public interface IEnchant extends IEnchantFilter {
 		return baseDamage;
 	}
 
-	default boolean onUseOnEntity(ItemStack stack, EntityPlayer player, EntityLiving entity, boolean didUse) {
+	default boolean onUseOnEntity(ItemStack stack, Player player, Mob entity, boolean didUse) {
 		return didUse;
 	}
 
-	default ItemStack onRightClick(ItemStack stack, World world, EntityPlayer player) {
+	default ItemStack onRightClick(ItemStack stack, World world, Player player) {
 		return stack;
 	}
 
-	default boolean onUse(ItemStack stack, World world, EntityPlayer player, int x, int y, int z, Side side, double xPlaced, double yPlaced, boolean didUse) {
+	default boolean onUse(ItemStack stack, World world, Player player, int x, int y, int z, Side side, double xPlaced, double yPlaced, boolean didUse) {
 		return didUse;
 	}
 
-	default float getMiningStrength(ItemStack stack, Block block, float strength) {
+	default float getMiningStrength(ItemStack stack, Block<?> block, float strength) {
 		return strength;
 	}
 
@@ -112,23 +112,23 @@ public interface IEnchant extends IEnchantFilter {
 		return protection;
 	}
 
-	default int onEntityDamage(ItemStack stack, EntityLiving entity, int damage, int newDamage, DamageType damageType) {
+	default int onEntityDamage(ItemStack stack, Mob entity, int damage, int newDamage, DamageType damageType) {
 		return damage;
 	}
 
-	default boolean doesHaveAmmo(ItemStack stack, EntityPlayer player, World world) {
+	default boolean doesHaveAmmo(ItemStack stack, Player player, World world) {
 		return false;
 	}
 
-	default boolean shouldCollectArrows(ItemStack stack, EntityPlayer player, World world) {
+	default boolean shouldCollectArrows(ItemStack stack, Player player, World world) {
 		return true;
 	}
 
-	default boolean shouldArrowBeGolden(ItemStack stack, EntityPlayer player, World world) {
+	default boolean shouldArrowBeGolden(ItemStack stack, Player player, World world) {
 		return false;
 	}
 
-	default void onArrowFired(ItemStack stack, EntityPlayer player, World world, EntityArrow arrow) {
+	default void onArrowFired(ItemStack stack, Player player, World world, ProjectileArrow arrow) {
 
 	}
 }

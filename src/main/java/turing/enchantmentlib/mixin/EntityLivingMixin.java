@@ -2,8 +2,8 @@ package turing.enchantmentlib.mixin;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
-import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,29 +16,29 @@ import turing.enchantmentlib.api.EnchantmentData;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = EntityLiving.class, remap = false)
+@Mixin(value = Mob.class, remap = false)
 public class EntityLivingMixin extends EntityMixin {
 	@Unique
 	public ThreadLocal<ItemStack> hitWith = new ThreadLocal<>();
 
-	@Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/EntityLiving;dropFewItems()V", shift = At.Shift.BEFORE))
+	@Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V", shift = At.Shift.BEFORE))
 	public void beforeDrops(Entity entity, CallbackInfo ci) {
-		if (entity instanceof EntityPlayer && !world.isClientSide) {
-			EntityPlayer player = (EntityPlayer) entity;
+		if (entity instanceof Player && !world.isClientSide) {
+			Player player = (Player) entity;
 			hitWith.set(player.getHeldItem());
 			dropList.set(new ArrayList<>());
 		}
 	}
 
-	@Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/EntityLiving;dropFewItems()V", shift = At.Shift.AFTER))
+	@Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V", shift = At.Shift.AFTER))
 	public void afterDrops(Entity entity, CallbackInfo ci) {
-		if (entity instanceof EntityPlayer && !world.isClientSide) {
+		if (entity instanceof Player && !world.isClientSide) {
 			ItemStack stack = hitWith.get();
 			List<ItemStack> base = dropList.get();
 			if (EnchantmentLib.isItemEnchanted(stack)) {
 				List<ItemStack> extra = new ArrayList<>();
 				for (EnchantmentData enchantment : EnchantmentLib.getEnchantsForItem(stack)) {
-					enchantment.getEnchantment().getExtraEntityDrops(stack, (EntityLiving)(Object)this, base, extra);
+					enchantment.getEnchantment().getExtraEntityDrops(stack, (Mob)(Object)this, base, extra);
 				}
 				extra.forEach(this::spawnItem);
 			}
@@ -50,7 +50,7 @@ public class EntityLivingMixin extends EntityMixin {
 	@Unique
 	public void spawnItem(ItemStack stack) {
 		EntityItem entityItem = new EntityItem(world, x, y, z, stack);
-		entityItem.delayBeforeCanPickup = 10;
+		entityItem.pickupDelay = 10;
 		world.entityJoinedWorld(entityItem);
 	}
 }

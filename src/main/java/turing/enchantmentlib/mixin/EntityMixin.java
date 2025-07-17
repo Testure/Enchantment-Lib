@@ -28,7 +28,7 @@ public class EntityMixin {
 	@Unique
 	public ThreadLocal<List<ItemStack>> dropList = ThreadLocal.withInitial(ArrayList::new);
 
-	@Inject(method = "spawnAtLocation(Lnet/minecraft/core/item/ItemStack;F)Lnet/minecraft/core/entity/EntityItem;", at = @At("HEAD"))
+	@Inject(method = "dropItem(Lnet/minecraft/core/item/ItemStack;F)Lnet/minecraft/core/entity/EntityItem;", at = @At("HEAD"))
 	public void getDroppedItems(ItemStack stack, float verticalOffset, CallbackInfoReturnable<EntityItem> cir) {
 		dropList.get().add(stack);
 	}

@@ -1,8 +1,7 @@
 package turing.enchantmentlib.enchants;
 
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import turing.enchantmentlib.EnchantmentLib;
 import turing.enchantmentlib.api.Enchantment;
@@ -10,7 +9,7 @@ import turing.enchantmentlib.api.IEnchantFilter;
 
 public class EnchantmentKnockback extends Enchantment {
 	@Override
-	public void onHitEntity(ItemStack stack, EntityPlayer player, EntityLiving entity, boolean didHit) {
+	public void onHitEntity(ItemStack stack, Player player, Mob entity, boolean didHit) {
 	    if (didHit && entity != null) {
 			double xd = player.x - entity.x;
 			double zd = player.z - entity.z;

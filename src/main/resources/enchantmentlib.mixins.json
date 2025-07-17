@@ -11,10 +11,10 @@
       "EntityMixin",
       "EntityLivingMixin",
       "EntityAccessor",
-      "BlockMixin"
+      "BlockLogicMixin"
     ],
     "client": [
-      "GuiTooltipMixin"
+      "TooltipElementMixin"
     ],
     "injectors": {
         "defaultRequire": 1
